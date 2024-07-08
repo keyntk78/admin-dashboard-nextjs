@@ -5,18 +5,13 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { getMenuList } from "@/lib/menu-list";
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider
-} from "@/components/ui/tooltip";
+
 import { CollapseMenuButton } from "../CollapseMenuButton";
 import TooltipGroupLabel from "./TooltipGroupLabel";
 import GroupLabel from "./GroupLabel";
-import ButtonSignOutMenu from "./ButtonSignOutMenu";
+import ButtonSignOutMenu from "./ButtonSignoutMenu";
+import SingleLevel from "./SingleLevel";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -24,7 +19,7 @@ interface MenuProps {
 
 export function Menu({ isOpen }: MenuProps) {
   const pathname = usePathname();
-  const menuList = getMenuList(pathname);
+  const menuList = getMenuList(pathname);  
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
@@ -43,40 +38,7 @@ export function Menu({ isOpen }: MenuProps) {
                 ({ href, label, icon: Icon, active, submenus }, index) =>
                   submenus.length === 0 ? (
                     <div className="w-full" key={index}>
-                      <TooltipProvider disableHoverableContent>
-                        <Tooltip delayDuration={100}>
-                          <TooltipTrigger asChild>
-                            <Button
-                              variant={active ? "secondary" : "ghost"}
-                              className="w-full justify-start h-10 mb-1"
-                              asChild
-                            >
-                              <Link href={href}>
-                                <span
-                                  className={cn(isOpen === false ? "" : "mr-4")}
-                                >
-                                  <Icon size={18} />
-                                </span>
-                                <p
-                                  className={cn(
-                                    "max-w-[200px] truncate",
-                                    isOpen === false
-                                      ? "-translate-x-96 opacity-0"
-                                      : "translate-x-0 opacity-100"
-                                  )}
-                                >
-                                  {label}
-                                </p>
-                              </Link>
-                            </Button>
-                          </TooltipTrigger>
-                          {isOpen === false && (
-                            <TooltipContent side="right">
-                              {label}
-                            </TooltipContent>
-                          )}
-                        </Tooltip>
-                      </TooltipProvider>
+                     <SingleLevel href={href} isOpen={isOpen} label={label} active={active} Icon={Icon}/>
                     </div>
                   ) : (
                     <div className="w-full" key={index}>

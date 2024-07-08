@@ -1,9 +1,9 @@
 import { ContentLayout } from "@/components/Admin/Layout/ContentLayout";
 
-export default function DashboardPage() {
+export default function ModernPage() {
   return (
-    <ContentLayout title='Dashboard'>
-      <h1>Dashboard content</h1>
+    <ContentLayout title='Modern'>
+      <h1>Modern content</h1>
       {/* <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
